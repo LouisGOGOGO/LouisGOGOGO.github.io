@@ -84,10 +84,10 @@
 <meta property="og:type" content="article">
 <meta property="og:title" content="通过SAM获得数据库本地用户的hash">
 <meta property="og:url" content="http://yoursite.com/2019/08/15/通过SAM获得数据库本地用户的hash/index.html">
-<meta property="og:site_name" content="Hexo">
+<meta property="og:site_name" content="LouisGOGOGO">
 <meta property="og:description" content="通过SAM获得本地用户hash0x00 引言渗透中，在获取到window系统的访问权限后，一般会使用mimikatz的sekurlsa::logonpasswords命令读取进程lsass的信息来获取当前登录用户的密码信息，但是如何全面获取系统的密码信息呢，这就要对SAM数据库中保存的信息进行提取，导出当前系统所有本地用户的hash。 0x01 简介 通过SAM数据库获得用户hash的多种方法 原">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2019-08-15T15:07:34.033Z">
+<meta property="og:updated_time" content="2019-08-15T15:26:58.684Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="通过SAM获得数据库本地用户的hash">
 <meta name="twitter:description" content="通过SAM获得本地用户hash0x00 引言渗透中，在获取到window系统的访问权限后，一般会使用mimikatz的sekurlsa::logonpasswords命令读取进程lsass的信息来获取当前登录用户的密码信息，但是如何全面获取系统的密码信息呢，这就要对SAM数据库中保存的信息进行提取，导出当前系统所有本地用户的hash。 0x01 简介 通过SAM数据库获得用户hash的多种方法 原">
@@ -126,7 +126,7 @@
 
 
 
-  <title>通过SAM获得数据库本地用户的hash | Hexo</title>
+  <title>通过SAM获得数据库本地用户的hash | LouisGOGOGO</title>
   
 
 
@@ -156,7 +156,7 @@
     <div class="custom-logo-site-title">
       <a href="/" class="brand" rel="start">
         <span class="logo-line-before"><i></i></span>
-        <span class="site-title">Hexo</span>
+        <span class="site-title">LouisGOGOGO</span>
         <span class="logo-line-after"><i></i></span>
       </a>
     </div>
@@ -278,13 +278,13 @@
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/08/15/通过SAM获得数据库本地用户的hash/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="John Doe">
+      <meta itemprop="name" content="LouisGOGOGO">
       <meta itemprop="description" content>
       <meta itemprop="image" content="/images/avatar.jpg">
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Hexo">
+      <meta itemprop="name" content="LouisGOGOGO">
     </span>
 
     
@@ -342,19 +342,19 @@
       
 
       
-        <h1 id="通过SAM获得本地用户hash"><a href="#通过SAM获得本地用户hash" class="headerlink" title="通过SAM获得本地用户hash"></a>通过SAM获得本地用户hash</h1><h3 id="0x00-引言"><a href="#0x00-引言" class="headerlink" title="0x00 引言"></a>0x00 引言</h3><p>渗透中，在获取到window系统的访问权限后，一般会使用mimikatz的sekurlsa::logonpasswords命令读取进程lsass的信息来获取当前登录用户的密码信息，但是如何全面获取系统的密码信息呢，这就要对SAM数据库中保存的信息进行提取，导出当前系统所有本地用户的hash。</p>
-<h3 id="0x01-简介"><a href="#0x01-简介" class="headerlink" title="0x01 简介"></a>0x01 简介</h3><ul>
+        <h1 id="通过SAM获得本地用户hash"><a href="#通过SAM获得本地用户hash" class="headerlink" title="通过SAM获得本地用户hash"></a>通过SAM获得本地用户hash</h1><h2 id="0x00-引言"><a href="#0x00-引言" class="headerlink" title="0x00 引言"></a>0x00 引言</h2><p>渗透中，在获取到window系统的访问权限后，一般会使用mimikatz的sekurlsa::logonpasswords命令读取进程lsass的信息来获取当前登录用户的密码信息，但是如何全面获取系统的密码信息呢，这就要对SAM数据库中保存的信息进行提取，导出当前系统所有本地用户的hash。</p>
+<h2 id="0x01-简介"><a href="#0x01-简介" class="headerlink" title="0x01 简介"></a>0x01 简介</h2><ul>
 <li>通过SAM数据库获得用户hash的多种方法</li>
 <li>原理分析</li>
 </ul>
-<h3 id="0x02-通过SAM数据库获得用户hash的方法"><a href="#0x02-通过SAM数据库获得用户hash的方法" class="headerlink" title="0x02 通过SAM数据库获得用户hash的方法"></a>0x02 通过SAM数据库获得用户hash的方法</h3><h5 id="1、在线读取SAM数据库"><a href="#1、在线读取SAM数据库" class="headerlink" title="1、在线读取SAM数据库"></a>1、在线读取SAM数据库</h5><p>直接将工具传入目标机器，在目标机器中运行并获取密码信息。</p>
+<h2 id="0x02-通过SAM数据库获得用户hash的方法"><a href="#0x02-通过SAM数据库获得用户hash的方法" class="headerlink" title="0x02 通过SAM数据库获得用户hash的方法"></a>0x02 通过SAM数据库获得用户hash的方法</h2><h3 id="1、在线读取SAM数据库"><a href="#1、在线读取SAM数据库" class="headerlink" title="1、在线读取SAM数据库"></a>1、在线读取SAM数据库</h3><p>直接将工具传入目标机器，在目标机器中运行并获取密码信息。</p>
 <p><em>mimikatz</em></p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">privilege::debug 提升权限</span><br><span class="line">token::elevate 假冒令牌。用于提升权限至 SYSTEM 权限（默认情况下）或者是发现计算机中的域管理员的令牌。</span><br><span class="line">lsadump::sam 利用lsass进程进行交互来提取凭证数据。</span><br><span class="line"></span><br><span class="line">###</span><br><span class="line">针对一个“在线”的 SAM 文件，需要管理员权限（使用 DEBUG 权限即可）或者本地 SYSTEM 权限。</span><br><span class="line">获取一个模拟的 SYSTEM 令牌： Mimikatz “PRIVILEGE::Debug” “TOKEN:elevate”</span><br></pre></td></tr></table></figure>
 
 <p><em>pwdump7</em></p>
 <p>利用pwdump7 使用管理员权限直接在目标机器运行。</p>
 <p>可以到处hash，爆破不出明文密码。</p>
-<h5 id="2、离线读取SAM数据库"><a href="#2、离线读取SAM数据库" class="headerlink" title="2、离线读取SAM数据库"></a>2、离线读取SAM数据库</h5><p>将需要的SAM数据库文件等其他可以用文件导出，传送到攻击机器中进行分析。</p>
+<h3 id="2、离线读取SAM数据库"><a href="#2、离线读取SAM数据库" class="headerlink" title="2、离线读取SAM数据库"></a>2、离线读取SAM数据库</h3><p>将需要的SAM数据库文件等其他可以用文件导出，传送到攻击机器中进行分析。</p>
 <blockquote>
 <p>获取SAM数据库文件有三种实现方式</p>
 </blockquote>
@@ -367,7 +367,7 @@
 <p>导出SAM 文件后，拉回本地使用<strong>mimikatz</strong>进行破解</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">lsadump::sam /sam:sambkup.hiv /system:systembkup.hiv</span><br></pre></td></tr></table></figure>
 
-<h3 id="0x03-原理分析"><a href="#0x03-原理分析" class="headerlink" title="0x03 原理分析"></a>0x03 原理分析</h3><p>读取注册表项<code>HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\Lsa</code>下的键值<code>JD</code>、<code>Skew1</code>、<code>GBG</code>和<code>Data</code>中的内容，拼接成syskey。</p>
+<h2 id="0x03-原理分析"><a href="#0x03-原理分析" class="headerlink" title="0x03 原理分析"></a>0x03 原理分析</h2><p>读取注册表项<code>HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\Lsa</code>下的键值<code>JD</code>、<code>Skew1</code>、<code>GBG</code>和<code>Data</code>中的内容，拼接成syskey。</p>
 <p>读取注册表项<code>HKEY_LOCAL_MACHINE\SAM\SAM\Domains\Account\Users</code>下每个用户中F项和V项的内容，使用syskey进行一系列的解密。</p>
 <p>至于拼接和解密的原理，自己找吧。</p>
 <p><em>我只是技术的搬运工</em></p>
@@ -475,9 +475,9 @@
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
-              <img class="site-author-image" itemprop="image" src="/images/avatar.jpg" alt="John Doe">
+              <img class="site-author-image" itemprop="image" src="/images/avatar.jpg" alt="LouisGOGOGO">
             
-              <p class="site-author-name" itemprop="name">John Doe</p>
+              <p class="site-author-name" itemprop="name">LouisGOGOGO</p>
               <p class="site-description motion-element" itemprop="description"></p>
           </div>
 
@@ -544,7 +544,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#通过SAM获得本地用户hash"><span class="nav-number">1.</span> <span class="nav-text">通过SAM获得本地用户hash</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#0x00-引言"><span class="nav-number">1.0.1.</span> <span class="nav-text">0x00 引言</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#0x01-简介"><span class="nav-number">1.0.2.</span> <span class="nav-text">0x01 简介</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#0x02-通过SAM数据库获得用户hash的方法"><span class="nav-number">1.0.3.</span> <span class="nav-text">0x02 通过SAM数据库获得用户hash的方法</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#1、在线读取SAM数据库"><span class="nav-number">1.0.3.0.1.</span> <span class="nav-text">1、在线读取SAM数据库</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#2、离线读取SAM数据库"><span class="nav-number">1.0.3.0.2.</span> <span class="nav-text">2、离线读取SAM数据库</span></a></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#0x03-原理分析"><span class="nav-number">1.0.4.</span> <span class="nav-text">0x03 原理分析</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#通过SAM获得本地用户hash"><span class="nav-number">1.</span> <span class="nav-text">通过SAM获得本地用户hash</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#0x00-引言"><span class="nav-number">1.1.</span> <span class="nav-text">0x00 引言</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#0x01-简介"><span class="nav-number">1.2.</span> <span class="nav-text">0x01 简介</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#0x02-通过SAM数据库获得用户hash的方法"><span class="nav-number">1.3.</span> <span class="nav-text">0x02 通过SAM数据库获得用户hash的方法</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1、在线读取SAM数据库"><span class="nav-number">1.3.1.</span> <span class="nav-text">1、在线读取SAM数据库</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2、离线读取SAM数据库"><span class="nav-number">1.3.2.</span> <span class="nav-text">2、离线读取SAM数据库</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#0x03-原理分析"><span class="nav-number">1.4.</span> <span class="nav-text">0x03 原理分析</span></a></li></ol></li></ol></div>
             
 
           </div>
@@ -568,7 +568,7 @@
   <span class="with-love">
     <i class="fa fa-user"></i>
   </span>
-  <span class="author" itemprop="copyrightHolder">John Doe</span>
+  <span class="author" itemprop="copyrightHolder">LouisGOGOGO</span>
 
   
 </div>

